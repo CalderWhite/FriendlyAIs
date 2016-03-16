@@ -1,2 +1,2 @@
-# calder
--waiting to upload code from local machine-
+# Friendly AIs
+Ai in progress
