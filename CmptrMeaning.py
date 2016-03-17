@@ -25,7 +25,8 @@ class cmptrMeanings(object):
         }
     CStatementDict = {
         "if" : ["previous <operator> post"],
-        "is" : ["next <operator> next3x","=="]
+        "is" : ["next <operator> next3x","=="],
+        "when" : ["next <operator> post"]
         }
     CStatementArray = ["if","is"]
     COperatorDict = {
@@ -171,7 +172,8 @@ def getTypeOfSentance(array,ThePunc):
                         Stype = "declarationVerb"
                         break;
         # <<< STOOF >>> #
-        if ThePunc == "?" and  Yandex.findAllTypes(Yandex.getWordGram(array[0]),"numeral"):
+        #Yandex.findAllTypes(Yandex.getWordGram(array[0]),"numeral")
+        if ThePunc == "?":
             Stype = "question"
     if Stype == None:
         Stype = "UNKNOWN"
@@ -215,10 +217,11 @@ def processSentance(string):
             memoryBank.memories[endVar] = emptyObj()
             setattr(memoryBank.memories[endVar],strType[1].upper(),[VALUE])
             #print(memoryBank.memories[endVar].__getattribute__(strType[1].upper()))
-        elif hasattr(memoryBank.memories[endVar],strType[1]) == False:
+        elif hasattr(memoryBank.memories[endVar],strType[1].upper()) == False:
             setattr(memoryBank.memories[endVar],strType[1].upper(),[VALUE])
         else:
-            memoryBank.memories[endVar].__getattribute__(endVar).append(VALUE)
+            memoryBank.memories[endVar].__getattribute__(strType[1].upper()).append(VALUE)
+            #memoryBank.memories[endVar].__getattribute__(endVar).append(VALUE)
     elif strType[0] == "declaration":
         varName = getIndVar(array,array[0])
         if re.search("\'s",array[array.index(varName) - 1]) != None:
@@ -264,6 +267,7 @@ def processSentance(string):
                 memoryBank.memories[endVar].IS.append(VALUE)   
     elif strType[0] == "exclamation":
         # Just some 'gut' reactions to certain types of words the user may input
+    
         TheWord = array[0]
         wDef = wiki.words.definition(TheWord)
         if "".join(wDef) == "That Page does not exist":
@@ -273,6 +277,10 @@ def processSentance(string):
                 Bot.prin("Whoa there! What?")
             elif re.search("greeting",wDef[0]) != None:
                 Bot.prin(Bot.greeting())
+    elif strType[0] == "action":
+        print("action")
+    elif strType[0] == "question":
+        print("question")
     # <<< done finding type of sentance >>> #
     # <<< SAVING OUR MEMORY >>> #
     stringVersion = memoryBank

@@ -1,10 +1,3 @@
-import re
-from Wiktionary import wiki
-import Yandex
-theVerb = "plays"
-for i in wiki.words.findAllDefs(theVerb):
-	for j in i:
-		if re.search("third-person",j) != None:
-			jArray = j.split(" ")
-			if Yandex.findType(Yandex.getWordGram(jArray[len(jArray) - 1]),"verb"):
-				Stype = "declarationVerb"
+import CmptrMeaning
+para = ['I have got more for you here, but first: self-promotion', ' There are no ads on makebright', ' There are no pop-ups that ask you to turn off an ad-blocker', ' My awesome Patreon supporters have helped me surpass “gas-money threshold” of $30/post', ' At the $320/post level, I will be able to devote a whole day a week to searching out these stories and delivering them to you', '  If you dig my community-building work, please support it with your pocket change', ' Ok, now more story']
+print(CmptrMeaning.processSentance("I have more for you here, but first: self-promotion."))
