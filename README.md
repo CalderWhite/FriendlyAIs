@@ -1,2 +1,2 @@
 # Friendly AIs
-Ai in progress
+**Contents include your own friendly AI! - No batteries included**
