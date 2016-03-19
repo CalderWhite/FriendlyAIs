@@ -1,6 +1,9 @@
-import CmptrMeaning
-from Wiktionary import wiki
-import Yandex
+from AI import CmptrMeaning
+from Internet.Wiktionary import wiki
+from Internet import Yandex
+import os
+from colorama import init
+from colorama import Fore, Back, Style
 def line():
 	print("────────────────────────────────────────────────────────────────────────────────")
 	#print("--------------------------------------------------------------------------------")
@@ -63,6 +66,9 @@ def gotoMode(Mode):
 		gotoMode(reloadMode())
 	pass;
 def boot():
+	init()
+	print(Fore.RED + "WARNING THIS IS OUTDATED, USE A.I.M. in homefolder/aim/aim.py for all commands")
+	print(Style.RESET_ALL)
 	print("Welcome to my talk line!\nAt the moment I haven't chosen a name, however I will have one soon!")
 	line()
 	print("\

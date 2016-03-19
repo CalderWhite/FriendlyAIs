@@ -1,0 +1,10 @@
+json
+urllib.request
+os
+sys
+re
+socket
+bs4 (Beautiful Soup)
+warnings
+random
+colorama

@@ -2,9 +2,10 @@ import re
 import json
 from json import JSONEncoder
 import os
-import Yandex
-from Wiktionary import wiki
-import Bot
+from Internet import Yandex
+from Internet.Wiktionary import wiki
+from AI import Bot
+# change into AI directory
 class emptyObj(object):
     def __init__(self):
         pass;
@@ -94,10 +95,11 @@ memoryBank = None
 # "AI" "Machine" stuff
 def loadMemory():
     global memoryBank
-    if os.path.exists(os.getcwd() + "\\MachineMemory.json") == False:
+    if os.path.exists(os.getcwd() + "/AI/resources/machine/MachineMemory.json") == False:
+        print("well crap")
         memoryBank = paragraph()
     else:
-        LoadedMemories = json.loads(open("MachineMemory.json",'r').read())
+        LoadedMemories = json.loads(open("AI/resources/machine/MachineMemory.json",'r').read())
         EarlyMemoBank = dictToObj(**LoadedMemories)
         for i in EarlyMemoBank.memories:
             EarlyMemoBank.memories[i] = dictToObj(**EarlyMemoBank.memories[i])
@@ -172,8 +174,7 @@ def getTypeOfSentance(array,ThePunc):
                         Stype = "declarationVerb"
                         break;
         # <<< STOOF >>> #
-        #Yandex.findAllTypes(Yandex.getWordGram(array[0]),"numeral")
-        if ThePunc == "?":
+        if ThePunc == "?" and Yandex.findAllTypes(Yandex.getWordGram(array[0]),"numeral"):
             Stype = "question"
     if Stype == None:
         Stype = "UNKNOWN"
@@ -212,14 +213,19 @@ def processSentance(string):
             endVar = varName
             pass;
         VALUE = getVarVal(array,varName,strType[1])
-        if memoryBank.memories.get(endVar) == None:
+        if memoryBank.memories.__contains__(str(endVar)) == False:
+            #print("1")
             #Set up an object
             memoryBank.memories[endVar] = emptyObj()
             setattr(memoryBank.memories[endVar],strType[1].upper(),[VALUE])
             #print(memoryBank.memories[endVar].__getattribute__(strType[1].upper()))
         elif hasattr(memoryBank.memories[endVar],strType[1].upper()) == False:
-            setattr(memoryBank.memories[endVar],strType[1].upper(),[VALUE])
+            #print("2")
+            setattr(memoryBank.memories[endVar],strType[1].upper(),[])
+            memoryBank.memories[endVar].__getattribute__(strType[1].upper()).append(VALUE)
         else:
+            #print("3")
+            print(VALUE)
             memoryBank.memories[endVar].__getattribute__(strType[1].upper()).append(VALUE)
             #memoryBank.memories[endVar].__getattribute__(endVar).append(VALUE)
     elif strType[0] == "declaration":
@@ -288,7 +294,7 @@ def processSentance(string):
         stringVersion.memories[i] = stringVersion.memories[i].__dict__
     writeString = stringVersion.__dict__
     JSONstr = json.dumps(writeString,indent=4, separators=(',',': '))
-    with open('MachineMemory.json','w') as myfile:
+    with open('AI/resources/machine/MachineMemory.json','w') as myfile:
         myfile.write(JSONstr)
     # <<< DONE SAVING MEMORY >>> #
     loadMemory()
