@@ -93,7 +93,3 @@ def memories(entity):
 		else:
 			print("There are no memories for " + entity[1])
 	pass;
-def say(things):
-	"""A test for user input"""
-	print(things[1])
-	pass; 
