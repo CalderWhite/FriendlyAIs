@@ -1,6 +1,10 @@
 import commands
 import os
 import json
+import sys
+sys.path.append(os.getcwd() + "../Internet/HTTPFunctions.py")
+from HTTPFunctions import *
+import urllib.request
 def help():
     """return a list of aim commands"""
     def repDif(str2,str1,rep):
@@ -93,3 +97,4 @@ def memories(entity):
 		else:
 			print("There are no memories for " + entity[1])
 	pass;
+	
