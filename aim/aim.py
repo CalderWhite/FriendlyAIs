@@ -28,7 +28,7 @@ if __name__ == '__main__':
 	else:
 		pass
 	if len(args) == 0:
-		print("Usage:\n    aim <command> [input]\nFor more help use:\n    aim help")
+		print("Usage:\n    aim <command> [input]\nOr:\n    aim /admin <password> <command> <options>\nFor more help use:\n    aim help")
 	elif searchCmds(args[0]):
 		if len(args) == 1:
 			commands.__getattribute__(args[0]).__call__()

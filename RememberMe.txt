@@ -7,6 +7,3 @@ use contractions such as I've, or what's
 Remember:
 It will not remember times like the phrase "right now",
 it only thinks in infinite
-DEVELOPER TO DO:
-update the aim get <package> to use logic,
-such as if the memory object already exists, append the memories inside of it

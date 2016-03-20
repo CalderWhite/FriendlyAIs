@@ -2,8 +2,7 @@ import commands
 import os
 import json
 import sys
-sys.path.append(os.getcwd() + "../Internet/HTTPFunctions.py")
-from HTTPFunctions import *
+import admin.Cmds
 import urllib.request
 def help():
     """return a list of aim commands"""
@@ -18,10 +17,19 @@ def help():
     for method in dir(commands):
         if callable(getattr(commands, method)) and str(method)[0:1] != "_":
             cmds.append(method)
+    adminCommands = []
+    for method in dir(admin.Cmds):
+        if callable(getattr(admin.Cmds, method)) and str(method)[0:1] != "_":
+            adminCommands.append(method)
     print("A.I.M. Command List:")
     print("--------------------")
     for i in cmds:
-        print(repDif("------------",str(i).upper()," ") + "    " + commands.__getattribute__(i).__getattribute__("__doc__").upper())
+        print(repDif("------------------",str(i).upper()," ") + "    " + commands.__getattribute__(i).__getattribute__("__doc__").upper())
+    print("--------------------")
+    print("ADMIN COMMANDS:")
+    print("--------------------")
+    for i in adminCommands:
+    	print(repDif("------------------",str(i).upper()," ") + "    " + admin.Cmds.__getattribute__(i).__getattribute__("__doc__").upper())
     print("\n There is no furthur information on this project yet,\n\
  since the github repository is private.\n\
  However, there will be more details when the project goes public.")

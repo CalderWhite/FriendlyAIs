@@ -1,5 +1,6 @@
 import json
 import urllib.request
+import re
 def clearMemories(args):
 	"""Erase certain or all memories. (/all to wipe memory)"""
 	name = args[3]
@@ -34,7 +35,7 @@ def clearMemories(args):
 			print("No memories deleted.") 
 def get(args):
 	"""Find and install memory packages"""
-	u = args[3]
+	u = args
 	print("Finding Package...")
 	tree = urllib.request.urlopen("https://api.github.com/repos/FriendlyAIs/aim-Packages/forks").read().decode('utf-8')
 	tjson = json.loads(tree)
@@ -85,5 +86,7 @@ def get(args):
 		JSON["memories"] = newJson
 		finalJson = json.dumps(JSON,indent=4, separators=(',',': '))
 		print("\n\n" + finalJson)
-		open("../AI/resources/machine/MachineMemory.json",'w').write(finalJson) 
+		#open("../AI/resources/machine/MachineMemory.json",'w').write(finalJson) 
 	pass
+if __name__ == '__main__':
+	get("Seceret-Dev-Package")
