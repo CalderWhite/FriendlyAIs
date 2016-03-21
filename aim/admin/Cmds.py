@@ -56,16 +56,16 @@ def get(args):
 		userJson = json.loads(userMemories)["memories"]
 		newJson = userJson
 		print("Installing new memory...")
-		print("\n")
+		#print("\n")
 		for i in package["memories"]:
 			print(i)
 			if userJson.get(i) != None:
-				print("found same")
+				#print("found same")
 				for j in package["memories"][i]:
-					print(j)
+					#print(j)
 					if newJson[i].get(j) != None:
 						for k in package["memories"][i][j]:
-							print(k)
+							#print(k)
 							if re.search("," + k + ",",",".join(newJson[i][j])) == None and re.search(",",",".join(newJson[i][j])) != None:
 								newJson[i][j].append(k)
 							elif re.search(k,",".join(newJson[i][j])) == None:
@@ -76,7 +76,7 @@ def get(args):
 						newJson[i][j] = package["memories"][i][j]
 			else:
 				newJson[i] = package["memories"][i]
-			print("--------")
+			#print("--------")
 		JSON = {
 			"memories" : {
 
@@ -84,6 +84,6 @@ def get(args):
 		}
 		JSON["memories"] = newJson
 		finalJson = json.dumps(JSON,indent=4, separators=(',',': '))
-		print("\n\n" + finalJson)
+		#print("\n\n" + finalJson)
 		open("../AI/resources/machine/MachineMemory.json",'w').write(finalJson) 
 	pass

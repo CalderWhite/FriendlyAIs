@@ -106,3 +106,28 @@ def memories(entity):
 			print("There are no memories for " + entity[1])
 	pass;
 	
+def listPackages():
+	class fork(object):
+		def __init__(self,repoName,html_url,owner):
+			self.name = repoName
+			self.url = html_url
+			self.owner = owner
+			pass
+	source = urllib.request.urlopen("https://api.github.com/repos/FriendlyAIs/aim-Packages/forks").read().decode('utf-8')
+	ob = json.loads(source)
+	#print(ob)
+	forks = []
+	for i in ob:
+		forks.append(fork(
+			i["name"],
+			i["html_url"],
+			i["owner"]["login"]
+			))
+	print("AIM Packages")
+	print("-------------")
+	for i in forks:
+		print("Package Name : " + i.name)
+		print(i.url)
+		print("Owned by: " + i.owner)
+		print("-------------")
+	pass
