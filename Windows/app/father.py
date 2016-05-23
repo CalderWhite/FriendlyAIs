@@ -2,9 +2,7 @@ import pygame, datetime, urllib.request, json, sys
 import os, subprocess, time, csv, threading, re
 
 pygame.init()
-with open("resources/BootFiles/BootList.csv", 'r') as f:
-    reader = csv.reader(f)
-    bootList = list(reader)
+bootList = None
 currentAsset = 0
 
 def rot_center(image, angle):
@@ -42,14 +40,18 @@ def addLog(user,uid):
 def loadAttributes():
     global bootList
     global currentAsset
-    oldAtt = os.getcwd()
+    oldCwd = os.getcwd()
     os.chdir("C:\\")
     for i in bootList:
         currentAsset = bootList.index(i)
         print(currentAsset)
+        os.chdir(bootList[currentAsset][2][bootList[currentAsset][2].find(":") + 2:bootList[currentAsset][2].__len__()])
+        print(os.getcwd())
         os.system("start " + bootList[currentAsset][1])
+        os.chdir("C:\\")
+    os.chdir(oldCwd)
     currentAsset = "Loaded"
-    time.sleep(1)
+    time.sleep(2)
     currentAsset = "Done"
     pass
 def Boot():
@@ -61,6 +63,10 @@ def Boot():
         os.chdir(newDir)
         cwd = os.getcwd()
         pass
+    elif cwd.find("app\\backgroundProcesses") != -1:
+        newDir = cwd[0:cwd.find("app\\backgroundProcesses") + 3]
+        os.chdir(newDir)
+        cwd = os.getcwd()
     currentAsset = "Loaded"
     pass
     monitorInfo = pygame.display.Info()
@@ -84,6 +90,9 @@ def Boot():
     pygame.display.update()
     clock = pygame.time.Clock()
     # Now start loading stuff
+    with open("resources/BootFiles/BootList.csv", 'r') as f:
+        reader = csv.reader(f)
+        bootList = list(reader)
     Loading = True
     LCDe = 0
     Lfont = pygame.font.Font("fonts/LoadingFont.TTF",32)
