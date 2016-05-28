@@ -1,2 +1,0 @@
-1. Create an install feature that sets all the filePaths in the bootlist (.csv)
-2. Create a boot feature that checks if the background process is already running
